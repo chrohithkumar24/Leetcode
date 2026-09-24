@@ -5,19 +5,21 @@ class Solution {
         }
         int n=nums.length;
         int Count=0;
-        for(int i=0;i<n;i++){
+        int left=0;
+        // for(int i=0;i<n;i++){
             int product=1;
-            for(int j=i;j>=0;j--){
-                product=product*nums[j];
-                if(product<k){
-                    Count++;
+            for(int right=left;right<n;right++){
+                product=product*nums[right];
+                while(product>=k){
+                    product /=nums[left];
+                    left++;
                 }
-                    else{
-                        break;
-                    }
+                Count+=right-left+1;
+                    
             }
             
-        }
+            
+    
         return Count;
 
         
