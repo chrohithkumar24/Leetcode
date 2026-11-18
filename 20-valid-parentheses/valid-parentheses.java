@@ -1,25 +1,23 @@
 class Solution {
     public boolean isValid(String s) {
-        StringBuilder sb = new StringBuilder(s);
-        int i=0;
-        while(i<sb.length()-1){
-            char a=sb.charAt(i);
-            char b=sb.charAt(i+1);
-            if(a=='(' && b==')' ||
-            a=='{' && b=='}' ||
-            a=='[' && b==']' 
-            ){
-            sb.delete(i,i+2);
+        Stack<Character> stack =new Stack<>();
+        HashMap<Character,Character> map = new HashMap<>();
+        map.put(')','(');
+        map.put('}','{');
+        map.put(']','[');
+
+        for( char ch : s.toCharArray()){
+            if(map.containsKey(ch)){
+                if(stack.isEmpty() || stack.pop() !=map.get(ch)){
+                    return false;
+                }
+            }
+                else{
+                     stack.push(ch);
+                }
+
             
-            if(i>0){
-                i--;
-            }
-            }
-            else{
-                i++;
-            }
         }
-        return sb.length()==0;
-        
+        return stack.isEmpty();
     }
 }
